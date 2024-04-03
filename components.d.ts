@@ -9,6 +9,9 @@ declare module 'vue' {
   export interface GlobalComponents {
     About: typeof import('./src/components/About.vue')['default']
     ChangeLog: typeof import('./src/components/ChangeLog.vue')['default']
+    Money: typeof import('./src/components/SaveCheckup/components/Money.vue')['default']
+    NAnchor: typeof import('naive-ui')['NAnchor']
+    NAnchorLink: typeof import('naive-ui')['NAnchorLink']
     NButton: typeof import('naive-ui')['NButton']
     NCollapseTransition: typeof import('naive-ui')['NCollapseTransition']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
@@ -34,7 +37,8 @@ declare module 'vue' {
     NText: typeof import('naive-ui')['NText']
     NUl: typeof import('naive-ui')['NUl']
     NUpload: typeof import('naive-ui')['NUpload']
-    SaveCheckup: typeof import('./src/components/SaveCheckup.vue')['default']
+    SaveCheckup: typeof import('./src/components/SaveCheckup/SaveCheckup.vue')['default']
+    Summary: typeof import('./src/components/SaveCheckup/components/Summary.vue')['default']
     UrlButton: typeof import('./src/components/UrlButton.vue')['default']
   }
 }
