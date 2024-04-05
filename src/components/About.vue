@@ -9,13 +9,11 @@
       项成就的进度以及其他进度和完成机制，包括爷爷的评价、姜岛升级、完美度和社交关系。
     </NP>
     <NP>
-      支持1.6版本大多数更改和新增的内容，并且只有存档版本是1.6时才会展示。
-      <NText italic class="font-semibold">
-        如果你加载了1.6版本的存档，可能会包涵游戏中的剧透内容。可以通过选择输出首选项来隐藏部分结果，来避免主线剧透，但是新内容的标题仍然会展示，并且会出现在旧内容的详细信息中。
-      </NText>
+      支持1.6版本大多数更改和新增的内容。与原英文版不同，因开发者本地只有1.6版本以上存档，所以暂时只支持1.6版本以上。
     </NP>
     <NP>
-      这个应用是用Vue.js编写的，使用了Naive UI和TailwindCSS。源代码存储库在
+      这个应用是用Vue.js编写的，使用了Naive
+      UI和TailwindCSS构造页面，使用fast-xml-parser解析存档。源代码存储库在
       <UrlButton
         text="https://github.com/lvzhenbo/stardew-checkup-zh"
         url="https://github.com/lvzhenbo/stardew-checkup-zh"
@@ -27,7 +25,7 @@
         text="https://github.com/MouseyPounds/stardew-checkup"
         url="https://github.com/MouseyPounds/stardew-checkup"
       />
-      。本项目参照了原项目的UI设计和逻辑。
+      。本项目参照了原项目的UI设计和逻辑，在基础上使用更现代的JS语法。
     </NP>
   </div>
 </template>

@@ -8,11 +8,18 @@
       </NSwitch>
       <div class="mt-0.5">（没有详细信息）</div>
     </NFlex>
-    <NCollapseTransition :show="showSummary">
+    <NCollapseTransition :show="showSummary" class="mb-6">
       <div class="pl-4 before:content-['\25c8\0020']">
         {{ summary.farmName }} 农场（{{ summary.farmType }}）
       </div>
-      <div class="pl-4 before:content-['\25c8\0020']"> 农夫 {{ summary.farmer }} </div>
+      <div class="pl-4 before:content-['\25c8\0020']">
+        农场主 {{ summary.farmer?.name }}
+        {{
+          summary.farmhands
+            ? `和 帮手 ${summary.farmhands.map((item) => item.name).join('、')}`
+            : ''
+        }}
+      </div>
       <div class="pl-4 before:content-['\25c8\0020']">
         第 {{ summary.year }} 年 {{ summary.currentSeason }} 第 {{ summary.dayOfMonth }} 天
       </div>
@@ -28,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-  import type { SaveGame } from '#/index';
-  import type { Summary } from '#/results';
+  import type { Player, SaveGame } from '#/index';
+  import type { Farmer, Summary } from '#/results';
   import { farmTypes, seasons } from './info';
   import { useResults } from '@/stores/modules/results';
 
@@ -52,25 +59,38 @@
   const parseSummary = () => {
     summary.value.farmName = data.player.farmName;
     summary.value.farmType = farmTypes[data.whichFarm];
-    summary.value.farmer = data.player.name;
+    summary.value.farmer = getFarmerData(data.player);
+    if (typeof data.farmhands !== 'string') {
+      summary.value.farmhands = [];
+      data.farmhands.Farmer.forEach((farmhand) => {
+        if (farmhand.userID) {
+          summary.value.farmhands?.push(getFarmerData(farmhand));
+        }
+      });
+    }
     summary.value.dayOfMonth = data.dayOfMonth;
     summary.value.currentSeason = seasons[data.currentSeason];
     summary.value.year = data.year;
     summary.value.playHr = Math.floor(data.player.millisecondsPlayed / 3600000);
     summary.value.playMin = Math.floor((data.player.millisecondsPlayed % 3600000) / 60000);
-    if (!data.gameVersion) {
-      summary.value.version = '1.2';
-      if (data.hasApplied1_4_UpdateChanges) {
-        summary.value.version = '1.4';
-      } else if (data.hasApplied1_3_UpdateChanges) {
-        summary.value.version = '1.3';
-      }
-    } else {
-      summary.value.version = data.gameVersion;
-    }
+    summary.value.version = data.gameVersion;
     summary.value.versionLabel = data.gameVersionLabel ?? '';
-    const { setSummary } = useResults();
-    setSummary(summary.value);
+    useResults().setSummary(summary.value);
+  };
+
+  const getFarmerData = (data: Player): Farmer => {
+    const stats: Farmer['stats'] = {};
+    data.stats.Values.item.forEach((item) => {
+      stats[item.key.string] = item.value.unsignedInt;
+    });
+    return {
+      name: data.name,
+      id: data.UniqueMultiplayerID,
+      stats,
+      mailReceived: data.mailReceived.string,
+      eventsSeen: data.eventsSeen.int,
+      experiencePoints: data.experiencePoints.int,
+    };
   };
 </script>
 

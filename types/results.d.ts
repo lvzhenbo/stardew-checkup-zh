@@ -7,7 +7,8 @@ export interface Summary {
   showDetailsButton?: boolean;
   farmName?: string;
   farmType?: string;
-  farmer?: string;
+  farmer?: Farmer;
+  farmhands?: Farmer[];
   dayOfMonth?: number;
   currentSeason?: string;
   year?: number;
@@ -15,6 +16,17 @@ export interface Summary {
   playMin?: number;
   version?: string;
   versionLabel?: string;
+}
+
+export interface Farmer {
+  name?: string;
+  id?: string;
+  stats?: {
+    [key: string]: number;
+  };
+  mailReceived?: string[];
+  eventsSeen?: Array<number | string>;
+  experiencePoints?: number[];
 }
 
 export interface Money {

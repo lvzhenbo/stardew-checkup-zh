@@ -9,7 +9,8 @@
     </NFlex>
     <NCollapseTransition :show="showSummary">
       <div class="pl-4 before:content-['\25c8\0020']">
-        {{ results.summary.farmName }} 农场已经赚取了金
+        {{ results.summary.farmName }} 农场已经赚取了
+        {{ new Intl.NumberFormat().format(money.totalMoneyEarned!) }} 金
       </div>
       <!-- <div class="pl-4 before:content-['\25c8\0020']"> 农夫 {{ summary.farmer }} </div>
       <div class="pl-4 before:content-['\25c8\0020']">
@@ -41,8 +42,16 @@
     parseMoney();
   });
 
+  watch(
+    () => data,
+    () => {
+      parseMoney();
+    },
+  );
+
   const parseMoney = () => {
     money.value.totalMoneyEarned = data.player.totalMoneyEarned;
+    useResults().setMoney(money.value);
   };
 </script>
 

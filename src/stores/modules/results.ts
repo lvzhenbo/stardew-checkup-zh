@@ -9,8 +9,12 @@ export const useResults = defineStore('results', () => {
   const setSummary = (summary: Results['summary']) => {
     results.value.summary = summary;
   };
+  const setMoney = (money: Results['money']) => {
+    results.value.money = money;
+  };
   return {
     results,
     setSummary,
+    setMoney,
   };
 });

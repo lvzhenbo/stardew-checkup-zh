@@ -5,7 +5,7 @@ export interface SaveData {
 
 export interface SaveGame {
   player: Player;
-  farmhands: string;
+  farmhands: string | Farmhands;
   locations: Locations;
   currentSeason: Season;
   samBandName: string;
@@ -140,11 +140,11 @@ export interface PreSelectedItemsClass {
 }
 
 export interface PreSelectedItemsItem {
-  key: Mailbox;
-  value: Mailbox;
+  key: StringObject;
+  value: StringObject;
 }
 
-export interface Mailbox {
+interface StringObject {
   string: string;
 }
 
@@ -152,7 +152,7 @@ export interface Reward {
   amount?: MaxEntries;
   multiplier?: MultiplierClass;
   noLetter?: SleptInTemporaryBed;
-  grantedMails?: Mailbox;
+  grantedMails?: StringObject;
   host?: SleptInTemporaryBed;
 }
 
@@ -173,7 +173,7 @@ export interface TailoredItems {
 }
 
 export interface TailoredItemsItem {
-  key: Mailbox;
+  key: StringObject;
   value: MaxEntries;
 }
 
@@ -298,7 +298,7 @@ export interface Entries {
 }
 
 export interface NetLeaderboardsEntry {
-  name: Mailbox;
+  name: StringObject;
   score: MaxEntries;
 }
 
@@ -311,7 +311,7 @@ export interface LocationWeather {
 }
 
 export interface LocationWeatherItem {
-  key: Mailbox;
+  key: StringObject;
   value: PurpleValue;
 }
 
@@ -320,8 +320,8 @@ export interface PurpleValue {
 }
 
 export interface LocationWeatherClass {
-  weatherForTomorrow: Mailbox;
-  weather: Mailbox;
+  weatherForTomorrow: StringObject;
+  weather: StringObject;
   isRaining: SleptInTemporaryBed;
   isSnowing: SleptInTemporaryBed;
   isLightning: SleptInTemporaryBed;
@@ -416,7 +416,7 @@ export interface GameLocation {
   bananaShrineNutAwarded?: SleptInTemporaryBed;
   sandDuggy?: SandDuggy;
   farmhouseRestored?: boolean;
-  farmhouseMailbox?: boolean;
+  farmhouseStringObject?: boolean;
   farmObelisk?: boolean;
   shippingBinPosition?: ScaleElement;
   traderActivated?: boolean;
@@ -490,7 +490,7 @@ export interface Gil {
   shouldPlaySpousePatioAnimation: SleptInTemporaryBed;
   shouldWearIslandAttire: SleptInTemporaryBed;
   isMovingOnPathFindPath: SleptInTemporaryBed;
-  endOfRouteBehaviorName: Mailbox;
+  endOfRouteBehaviorName: StringObject;
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
@@ -514,7 +514,7 @@ export interface PurpleSerializableDictionaryOfStringString {
 }
 
 export interface PurpleItem {
-  key: Mailbox;
+  key: StringObject;
   value: PurpleKey;
 }
 
@@ -531,7 +531,7 @@ export interface AppliedWallpaperSerializableDictionaryOfStringString {
 }
 
 export interface FluffyItem {
-  key: Mailbox;
+  key: StringObject;
   value: FluffyKey;
 }
 
@@ -549,8 +549,8 @@ export interface BuildingsClass {
 
 export interface Building {
   id: string;
-  skinId: Mailbox;
-  nonInstancedIndoorsName: Mailbox;
+  skinId: StringObject;
+  nonInstancedIndoorsName: StringObject;
   tileX: number;
   tileY: number;
   tilesWide: number;
@@ -652,7 +652,7 @@ export interface ChestElement {
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: Mailbox;
+  globalInventoryId: StringObject;
 }
 
 export interface NeededItem {
@@ -721,14 +721,14 @@ export interface Output {
   dropContents?: boolean;
   synchronized?: boolean;
   specialChestType?: SpecialChestType;
-  globalInventoryId?: Mailbox;
+  globalInventoryId?: StringObject;
   Item?: DishOfTheDay;
   questId?: number;
   preservedParentSheetIndex?: number;
 }
 
 export interface BuildingPaintColor {
-  ColorName: Mailbox;
+  ColorName: StringObject;
   Color1Default: SleptInTemporaryBed;
   Color1Hue: MaxEntries;
   Color1Saturation: MaxEntries;
@@ -913,7 +913,7 @@ export interface CharactersNPCClass {
   shouldPlaySpousePatioAnimation: SleptInTemporaryBed;
   shouldWearIslandAttire: SleptInTemporaryBed;
   isMovingOnPathFindPath: SleptInTemporaryBed;
-  endOfRouteBehaviorName: Mailbox;
+  endOfRouteBehaviorName: StringObject;
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
@@ -1078,7 +1078,7 @@ export interface HeldObject {
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: Mailbox;
+  globalInventoryId: StringObject;
 }
 
 export interface PurpleItems {
@@ -1137,7 +1137,7 @@ export interface Input {
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: Mailbox;
+  globalInventoryId: StringObject;
 }
 
 export interface InputItems {
@@ -1224,7 +1224,7 @@ export interface PurpleNPC {
   shouldPlaySpousePatioAnimation: SleptInTemporaryBed;
   shouldWearIslandAttire: SleptInTemporaryBed;
   isMovingOnPathFindPath: SleptInTemporaryBed;
-  endOfRouteBehaviorName: Mailbox;
+  endOfRouteBehaviorName: StringObject;
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
@@ -1359,7 +1359,7 @@ export interface FluffyNPC {
   shouldWearIslandAttire: SleptInTemporaryBed;
   isMovingOnPathFindPath: SleptInTemporaryBed;
   dayScheduleName?: DayScheduleNameEnum;
-  endOfRouteBehaviorName: Mailbox;
+  endOfRouteBehaviorName: StringObject;
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
@@ -1421,7 +1421,7 @@ export interface Fridge {
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: Mailbox;
+  globalInventoryId: StringObject;
 }
 
 export interface FluffyItems {
@@ -1466,7 +1466,7 @@ export interface HeldObjectElement {
   destroyOvernight: boolean;
   preserve?: Preserve;
   preservedParentSheetIndex?: number;
-  displayNameOverrideTemplate?: Mailbox;
+  displayNameOverrideTemplate?: StringObject;
   descriptionSubstitutionTemplates?: HeldObjectDescriptionSubstitutionTemplates;
   trinketMetadata?: TrinketMetadata;
   generationSeed?: number;
@@ -1675,7 +1675,7 @@ export interface PurpleObject {
   dropContents?: boolean;
   synchronized?: boolean;
   specialChestType?: SpecialChestType;
-  globalInventoryId?: Mailbox;
+  globalInventoryId?: StringObject;
   lastOutputRuleId?: string;
   lastInputItem?: HeldObjectElement;
   health?: number;
@@ -1787,7 +1787,7 @@ export interface StickyItem {
   boots?: ItemBoots;
   facing?: MaxEntries;
   swappedWithFarmerTonight?: SleptInTemporaryBed;
-  displayNameOverrideTemplate?: Mailbox;
+  displayNameOverrideTemplate?: StringObject;
   descriptionSubstitutionTemplates?:
     | DescriptionSubstitutionTemplatesDescriptionSubstitutionTemplates
     | string;
@@ -2105,7 +2105,9 @@ export interface Player {
   questLog: string;
   professions: Achievements;
   newLevels: string;
-  experiencePoints: Achievements;
+  experiencePoints: {
+    int: number[];
+  };
   items: PlayerItems;
   dialogueQuestionsAnswered: Achievements;
   cookingRecipes: LimitedNutDrops;
@@ -2113,7 +2115,9 @@ export interface Player {
   activeDialogueEvents: LimitedNutDrops;
   previousActiveDialogueEvents: LimitedNutDrops;
   triggerActionsRun: AcceptedSpecialOrderTypes;
-  eventsSeen: EventsSeen;
+  eventsSeen: {
+    int: Array<number | string>;
+  };
   secretNotesSeen: Achievements;
   songsHeard: AcceptedSpecialOrderTypes;
   achievements: Achievements;
@@ -2121,7 +2125,7 @@ export interface Player {
   specialBigCraftables: Achievements;
   mailReceived: AcceptedSpecialOrderTypes;
   mailForTomorrow: string;
-  mailbox: Mailbox;
+  mailbox: StringObject;
   locationsVisited: AcceptedSpecialOrderTypes;
   timeWentToBed: MaxEntries;
   sleptInTemporaryBed: SleptInTemporaryBed;
@@ -2302,16 +2306,12 @@ export interface CallsReceivedItem {
   value: MaxEntries;
 }
 
-export interface EventsSeen {
-  int: Array<number | string>;
-}
-
 export interface FishCaught {
   item: FishCaughtItem[];
 }
 
 export interface FishCaughtItem {
-  key: Mailbox;
+  key: StringObject;
   value: CunningValue;
 }
 
@@ -2320,7 +2320,7 @@ export interface FriendshipData {
 }
 
 export interface FriendshipDataItem {
-  key: Mailbox;
+  key: StringObject;
   value: MagentaValue;
 }
 
@@ -2358,7 +2358,7 @@ export interface GiftedItems {
 }
 
 export interface GiftedItemsItem {
-  key: Mailbox;
+  key: StringObject;
   value: FriskyValue;
 }
 
@@ -2516,7 +2516,14 @@ export interface ShirtItem {
 
 export interface Stats {
   specificMonstersKilled: LimitedNutDrops;
-  Values: Values;
+  Values: {
+    item: {
+      key: StringObject;
+      value: {
+        unsignedInt: number;
+      };
+    }[];
+  };
   averageBedtime: string;
   beveragesMade: string;
   caveCarrotsFound: string;
@@ -2566,19 +2573,6 @@ export interface Stats {
   seedsSown: string;
 }
 
-export interface Values {
-  item: ValuesItem[];
-}
-
-export interface ValuesItem {
-  key: Mailbox;
-  value: MischievousValue;
-}
-
-export interface MischievousValue {
-  unsignedInt: number;
-}
-
 export interface TrinketItem {
   isLostItem: boolean;
   category: number;
@@ -2612,7 +2606,7 @@ export interface TrinketItem {
   scale: ScaleElement;
   uses: number;
   destroyOvernight: boolean;
-  displayNameOverrideTemplate: Mailbox;
+  displayNameOverrideTemplate: StringObject;
   descriptionSubstitutionTemplates: DescriptionSubstitutionTemplatesDescriptionSubstitutionTemplates;
   trinketMetadata: TrinketMetadata;
   generationSeed: number;
@@ -2651,4 +2645,8 @@ export interface ParticipantsIDs {
 export interface ParticipantsIDsItem {
   key: KeyClass;
   value: SleptInTemporaryBed;
+}
+
+export interface Farmhands {
+  Farmer: Player[];
 }

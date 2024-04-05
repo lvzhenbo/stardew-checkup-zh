@@ -4,21 +4,11 @@
     <NP>
       选择下面的输出首选项，然后选择你的存档文件。<NText italic>摘要信息</NText>
       是展示成就或目标是否完成，<NText italic>详细信息</NText>
-      是展示NPC事件清单或需要物品的完整列表。<NText italic>新内容</NText>
-      是1.6版本新增内容。
+      是展示NPC事件清单或需要物品的完整列表。
     </NP>
-    <NForm label-placement="left">
-      <NFormItem label="输出首选项（旧内容）：">
+    <NForm label-placement="left" :show-feedback="false">
+      <NFormItem label="输出首选项：">
         <NRadioGroup value="hide_details">
-          <NSpace>
-            <NRadio value="show_all"> 显示摘要信息和详细信息 </NRadio>
-            <NRadio value="hide_details"> 显示摘要信息并隐藏详细信息 </NRadio>
-            <NRadio value="hide_all"> 隐藏摘要信息和详细信息 </NRadio>
-          </NSpace>
-        </NRadioGroup>
-      </NFormItem>
-      <NFormItem label="输出首选项（新内容）：">
-        <NRadioGroup value="hide_all">
           <NSpace>
             <NRadio value="show_all"> 显示摘要信息和详细信息 </NRadio>
             <NRadio value="hide_details"> 显示摘要信息并隐藏详细信息 </NRadio>
@@ -90,13 +80,14 @@
   const showResults = ref(false);
   const loadDown = ref(false);
   const gameData = ref<SaveGame>();
+  const message = useMessage();
 
   const fileChange = (options: {
     file: UploadFileInfo;
     fileList: Array<UploadFileInfo>;
     event?: Event;
   }) => {
-    if (options.file.file) {
+    if (options.file.file && options.event) {
       showResults.value = true;
       const reader = new FileReader();
       reader.onloadstart = () => {
@@ -113,6 +104,10 @@
       reader.onload = (e) => {
         const parser = new XMLParser();
         const data: SaveData = parser.parse(e.target?.result as string);
+        if (!data.SaveGame) {
+          message.error('请按照要求选择正确的存档文件');
+          throw new Error('Invalid save file');
+        }
         console.log(data);
         gameData.value = data.SaveGame;
         setTimeout(() => {
@@ -120,6 +115,10 @@
         }, 1000);
       };
       reader.readAsText(options.file.file);
+    } else {
+      percentage.value = 0;
+      loadDown.value = false;
+      showResults.value = false;
     }
   };
 </script>
