@@ -60,7 +60,7 @@
     summary.value.farmName = data.player.farmName;
     summary.value.farmType = farmTypes[data.whichFarm];
     summary.value.farmer = getFarmerData(data.player);
-    if (typeof data.farmhands !== 'string') {
+    if (typeof data.farmhands !== 'string' && Array.isArray(data.farmhands.Farmer)) {
       summary.value.farmhands = [];
       data.farmhands.Farmer.forEach((farmhand) => {
         if (farmhand.userID) {

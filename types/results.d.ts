@@ -4,7 +4,6 @@ export interface Results {
 }
 
 export interface Summary {
-  showDetailsButton?: boolean;
   farmName?: string;
   farmType?: string;
   farmer?: Farmer;
@@ -31,4 +30,5 @@ export interface Farmer {
 
 export interface Money {
   totalMoneyEarned?: number;
+  separateWallets?: boolean;
 }
