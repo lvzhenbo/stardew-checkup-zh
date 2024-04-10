@@ -14,3 +14,5 @@ export const farmTypes = {
   6: '海滩农场',
   MeadowlandsFarm: '草原农场',
 };
+
+export const levelToPoints = [100, 380, 770, 1300, 2150, 3300, 4800, 6900, 10000, 15000];
