@@ -38,7 +38,7 @@
   import type { Player, SaveGame } from '#/index';
   import type { Farmer, Summary } from '#/results';
   import { farmTypes, seasons } from './info';
-  import { useResults } from '@/stores/modules/results';
+  import { useResultsStore } from '@/stores/modules/results';
 
   const { data } = defineProps<{ data: SaveGame }>();
 
@@ -75,7 +75,7 @@
     summary.value.playMin = Math.floor((data.player.millisecondsPlayed % 3600000) / 60000);
     summary.value.version = data.gameVersion;
     summary.value.versionLabel = data.gameVersionLabel ?? '';
-    useResults().setSummary(summary.value);
+    useResultsStore().setSummary(summary.value);
   };
 
   const getFarmerData = (data: Player): Farmer => {
@@ -90,6 +90,12 @@
       mailReceived: data.mailReceived.string,
       eventsSeen: data.eventsSeen.int,
       experiencePoints: data.experiencePoints.int,
+      gender: data.gender,
+      farmingLevel: data.farmingLevel,
+      fishingLevel: data.fishingLevel,
+      foragingLevel: data.foragingLevel,
+      miningLevel: data.miningLevel,
+      combatLevel: data.combatLevel,
     };
   };
 </script>

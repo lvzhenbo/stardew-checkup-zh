@@ -1,6 +1,6 @@
 import type { Results } from '#/results';
 
-export const useResults = defineStore('results', () => {
+export const useResultsStore = defineStore('results', () => {
   const results = ref<Results>({
     summary: {},
     money: {},

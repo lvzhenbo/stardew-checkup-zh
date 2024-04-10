@@ -1,3 +1,5 @@
+import type { Gender } from '.';
+
 export interface Results {
   summary: Summary;
   money: Money;
@@ -18,14 +20,21 @@ export interface Summary {
 }
 
 export interface Farmer {
-  name?: string;
-  id?: string;
+  name: string;
+  id: string;
   stats?: {
     [key: string]: number;
   };
   mailReceived?: string[];
   eventsSeen?: Array<number | string>;
-  experiencePoints?: number[];
+  experiencePoints: number[];
+  gender: Gender;
+  farmingLevel: number;
+  fishingLevel: number;
+  foragingLevel: number;
+  miningLevel: number;
+  combatLevel: number;
+  totalLevel?: number;
 }
 
 export interface Money {

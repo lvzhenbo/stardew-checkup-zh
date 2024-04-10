@@ -54,7 +54,7 @@
     <div v-else>
       <Summary :data="gameData!" />
       <Money :data="gameData!" />
-      <Sills :data="gameData!" />
+      <Skills :data="gameData!" />
     </div>
   </div>
   <div class="fixed right-2 top-2 bg-[#eecc99] p-1 shadow-md rounded">
@@ -103,7 +103,10 @@
         percentage.value = 100;
       };
       reader.onload = (e) => {
-        const parser = new XMLParser();
+        const parser = new XMLParser({
+          ignoreAttributes: false,
+          attributeNamePrefix: '@_',
+        });
         const data: SaveData = parser.parse(e.target?.result as string);
         if (!data.SaveGame) {
           message.error('请按照要求选择正确的存档文件');

@@ -50,7 +50,7 @@
           </NLi>
           <NLi v-if="moneyEarned !== money.totalMoneyEarned">
             不明{{ money.totalMoneyEarned! - moneyEarned > 0 ? '盈余' : '亏损' }}
-            {{ new Intl.NumberFormat().format(Math.abs(money.totalMoneyEarned! - moneyEarned)) }}
+            {{ formatNumber(Math.abs(money.totalMoneyEarned! - moneyEarned)) }}
             金
           </NLi>
         </NUl>
@@ -62,13 +62,13 @@
 <script setup lang="ts">
   import type { SaveGame } from '#/index';
   import type { Money } from '#/results';
-  import { useResults } from '@/stores/modules/results';
+  import { useResultsStore } from '@/stores/modules/results';
 
   const { data } = defineProps<{ data: SaveGame }>();
 
   const showSummary = ref(true);
   const showDetail = ref(true);
-  const { results } = useResults();
+  const { results } = useResultsStore();
   const money = ref<Money>({});
   const moneyEarned = ref<number>(0);
   const moneyEarnedList = ref<{ name: string; money: number }[]>([]);
@@ -103,7 +103,7 @@
         });
       }
     }
-    useResults().setMoney(money.value);
+    useResultsStore().setMoney(money.value);
   };
 
   const getAchieveClass = (value: number) => {
