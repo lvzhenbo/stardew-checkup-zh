@@ -22,7 +22,7 @@ export interface Summary {
 export interface Farmer {
   name: string;
   id: string;
-  stats?: {
+  stats: {
     [key: string]: number;
   };
   mailReceived?: string[];
@@ -35,6 +35,7 @@ export interface Farmer {
   miningLevel: number;
   combatLevel: number;
   totalLevel?: number;
+  maxSkillNum?: number;
 }
 
 export interface Money {

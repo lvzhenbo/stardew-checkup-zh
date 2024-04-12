@@ -16,3 +16,5 @@ export const farmTypes = {
 };
 
 export const levelToPoints = [100, 380, 770, 1300, 2150, 3300, 4800, 6900, 10000, 15000];
+export const masteryLevelToPoints = [0, 10000, 25000, 45000, 70000, 100000];
+export const skills = ['耕种', '钓鱼', '采集', '采矿', '战斗'];

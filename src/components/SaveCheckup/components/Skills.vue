@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="skills">
     <NFlex>
       <NH3> 技能 </NH3>
       <NSwitch v-model:value="showSummary" class="mt-0.5">
@@ -98,6 +98,7 @@
 
   const parseSkills = () => {
     farmerSkillsList.value = [];
+    ifDetail.value = false;
     if (resultsStore.results.summary.farmer) {
       const farmer = resultsStore.results.summary.farmer;
       farmerSkillsList.value.push({
@@ -109,6 +110,7 @@
         maxSkillNum: getMaxSkillNum(farmer),
       });
       resultsStore.results.summary.farmer.totalLevel = getFarmerTotleLevel(farmer);
+      resultsStore.results.summary.farmer.maxSkillNum = getMaxSkillNum(farmer);
       if (getFarmerTotleLevel(farmer) < 50) {
         ifDetail.value = true;
       }
@@ -124,6 +126,7 @@
           maxSkillNum: getMaxSkillNum(farmhand),
         });
         farmhand.totalLevel = getFarmerTotleLevel(farmhand);
+        farmhand.maxSkillNum = getMaxSkillNum(farmhand);
         if (getFarmerTotleLevel(farmhand) < 50) {
           ifDetail.value = true;
         }

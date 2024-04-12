@@ -12,7 +12,7 @@
       支持1.6版本大多数更改和新增的内容。与原英文版不同，因开发者本地只有1.6版本以上存档，所以暂时只支持1.6版本以上。
     </NP>
     <NP>
-      这个应用是用Vue.js编写的，使用了Naive
+      本应用是用Vue.js编写的，使用了Naive
       UI和TailwindCSS构造页面，使用fast-xml-parser解析存档。源代码存储库在
       <UrlButton
         text="https://github.com/lvzhenbo/stardew-checkup-zh"

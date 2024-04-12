@@ -41,6 +41,7 @@ declare module 'vue' {
     NUl: typeof import('naive-ui')['NUl']
     NUpload: typeof import('naive-ui')['NUpload']
     SaveCheckup: typeof import('./src/components/SaveCheckup/SaveCheckup.vue')['default']
+    SkillMastery: typeof import('./src/components/SaveCheckup/components/SkillMastery.vue')['default']
     Skills: typeof import('./src/components/SaveCheckup/components/Skills.vue')['default']
     Summary: typeof import('./src/components/SaveCheckup/components/Summary.vue')['default']
     UrlButton: typeof import('./src/components/UrlButton.vue')['default']
