@@ -16,8 +16,11 @@
       <NGrid x-gap="12" :cols="2">
         <NGi v-for="item in farmerSkillsList" :key="item.id">
           <div class="pl-4 before:content-['\25c8\0020']">
-            {{ item.name }} 是 {{ item.titleLevel }} 级农夫，技能头衔是 {{ item.titleName }}.
-            （完美度：{{ item.titleLevel / 0.25 }}%）
+            {{ item.name }} 是 {{ item.titleLevel }} 级农夫，
+            <UrlButton
+              text="技能头衔"
+              url="https://zh.stardewvalleywiki.com/%E6%8A%80%E8%83%BD#%E6%8A%80%E8%83%BD%E5%A4%B4%E8%A1%94"
+            />是 {{ item.titleName }}. （完美度：{{ item.titleLevel / 0.25 }}%）
           </div>
           <div class="pl-4 before:content-['\25c8\0020']">
             5项技能中有 {{ item.maxSkillNum }} 项达到了最高级10级

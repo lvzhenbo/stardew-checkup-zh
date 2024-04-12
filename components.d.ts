@@ -40,6 +40,7 @@ declare module 'vue' {
     NText: typeof import('naive-ui')['NText']
     NUl: typeof import('naive-ui')['NUl']
     NUpload: typeof import('naive-ui')['NUpload']
+    Quests: typeof import('./src/components/SaveCheckup/components/Quests.vue')['default']
     SaveCheckup: typeof import('./src/components/SaveCheckup/SaveCheckup.vue')['default']
     SkillMastery: typeof import('./src/components/SaveCheckup/components/SkillMastery.vue')['default']
     Skills: typeof import('./src/components/SaveCheckup/components/Skills.vue')['default']
