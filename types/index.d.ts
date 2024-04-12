@@ -10,8 +10,8 @@ export interface SaveGame {
   currentSeason: Season;
   samBandName: string;
   elliottBookName: string;
-  broadcastedMail: AcceptedSpecialOrderTypes;
-  worldStateIDs: AcceptedSpecialOrderTypes;
+  broadcastedMail: { string: string[] };
+  worldStateIDs: { string: string[] };
   lostBooksFound: number;
   goldenWalnuts: number;
   goldenWalnutsFound: number;
@@ -21,7 +21,7 @@ export interface SaveGame {
   goldenCoconutCracked: boolean;
   parrotPlatformsUnlocked: boolean;
   farmPerfect: boolean;
-  foundBuriedNuts: AcceptedSpecialOrderTypes;
+  foundBuriedNuts: { string: string[] };
   checkedGarbage: string;
   visitsUntilY1Guarantee: number;
   shuffleMineChests: string;
@@ -64,11 +64,11 @@ export interface SaveGame {
   junimoKartLeaderboards: JunimoKartLeaderboards;
   specialOrders: SpecialOrders;
   availableSpecialOrders: AvailableSpecialOrders;
-  completedSpecialOrders: AcceptedSpecialOrderTypes;
-  acceptedSpecialOrderTypes: AcceptedSpecialOrderTypes;
+  completedSpecialOrders: { string: string[] };
+  acceptedSpecialOrderTypes: { string: string[] };
   returnedDonations: string;
   globalInventories: string;
-  collectedNutTracker: AcceptedSpecialOrderTypes;
+  collectedNutTracker: { string: string[] };
   farmerFriendships: string;
   cellarAssignments: CellarAssignments;
   timesFedRaccoons: number;
@@ -81,10 +81,6 @@ export interface SaveGame {
   lastAppliedSaveFix: number;
   gameVersion: string;
   gameVersionLabel?: string;
-}
-
-export interface AcceptedSpecialOrderTypes {
-  string: string[];
 }
 
 export interface AvailableSpecialOrders {
@@ -2114,19 +2110,19 @@ export interface Player {
   craftingRecipes: LimitedNutDrops;
   activeDialogueEvents: LimitedNutDrops;
   previousActiveDialogueEvents: LimitedNutDrops;
-  triggerActionsRun: AcceptedSpecialOrderTypes;
+  triggerActionsRun: { string: string[] };
   eventsSeen: {
     int: Array<number | string>;
   };
   secretNotesSeen: Achievements;
-  songsHeard: AcceptedSpecialOrderTypes;
+  songsHeard: { string: string[] };
   achievements: Achievements;
   specialItems: Achievements;
   specialBigCraftables: Achievements;
-  mailReceived: AcceptedSpecialOrderTypes;
+  mailReceived: { string: string[] };
   mailForTomorrow: string;
   mailbox: StringObject;
-  locationsVisited: AcceptedSpecialOrderTypes;
+  locationsVisited: { string: string[] };
   timeWentToBed: MaxEntries;
   sleptInTemporaryBed: SleptInTemporaryBed;
   stats: Stats;

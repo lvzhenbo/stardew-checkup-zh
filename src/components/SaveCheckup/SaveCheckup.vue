@@ -57,6 +57,7 @@
       <Skills :data="gameData!" />
       <SkillMastery :data="gameData!" />
       <Quests :data="gameData!" />
+      <SpecialOrders :data="gameData!" />
     </div>
   </div>
   <div class="fixed right-2 top-2 bg-[#eecc99] p-1 shadow-md rounded">
