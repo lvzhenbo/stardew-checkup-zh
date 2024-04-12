@@ -1,6 +1,6 @@
 <template>
   <div id="about" class="bg-[#ffe0b0] py-2 px-4 m-4 rounded-2xl border-4 border-[#804000]">
-    <NH1> 星露谷物语存档检查器 </NH1>
+    <NH1> 星露谷物语存档进度检查器 </NH1>
     <NH2> 关于 </NH2>
     <NP>
       此应用检查
