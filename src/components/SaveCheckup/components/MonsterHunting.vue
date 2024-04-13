@@ -90,7 +90,7 @@
                     <NLi v-if="monstersKilled.count < monstersKilled.goal">
                       <UrlButton
                         :text="monstersKilled.name"
-                        :url="`https://zh.stardewvalleywiki.com/%E6%8E%A2%E9%99%A9%E5%AE%B6%E5%85%AC%E4%BC%9A#${monstersKilled.name}`"
+                        :url="`https://zh.stardewvalleywiki.com/%E6%8E%A2%E9%99%A9%E5%AE%B6%E5%85%AC%E4%BC%9A#${monstersKilled.id}`"
                       />
                       ——还需要消灭 {{ monstersKilled.goal - monstersKilled.count }} 只
                     </NLi>
