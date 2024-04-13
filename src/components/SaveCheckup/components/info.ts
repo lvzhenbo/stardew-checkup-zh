@@ -41,3 +41,78 @@ export const specialOrders: {
   Wizard: { name: '奇特物质', id: 'A_Curious_Substance' },
   Wizard2: { name: '五彩胶冻', id: 'Prismatic_Jelly' },
 };
+
+export const monstersData = [
+  {
+    name: '史莱姆',
+    goal: 1000,
+    sub: ['Green Slime', 'Frost Jelly', 'Sludge', 'Tiger Slime'],
+    id: 'Slime',
+  },
+  {
+    name: '虚空怪',
+    goal: 150,
+    sub: ['Shadow Brute', 'Shadow Shaman', 'Shadow Sniper'],
+    id: 'Void_Spirit',
+  },
+  {
+    name: '蝙蝠',
+    goal: 200,
+    sub: ['Bat', 'Frost Bat', 'Lava Bat', 'Iridium Bat'],
+    id: 'Bat',
+  },
+  {
+    name: '骷髅',
+    goal: 50,
+    sub: ['Skeleton', 'Skeleton Mage'],
+    id: 'Skeleton',
+  },
+  {
+    name: '山洞昆虫',
+    goal: 80,
+    sub: ['Bug', 'Fly', 'Grub'],
+    id: 'Cave_Insect',
+  },
+  {
+    name: '掘地虫',
+    goal: 30,
+    sub: ['Duggy', 'Magma Duggy'],
+    id: 'Duggy',
+  },
+  {
+    name: '灰尘精灵',
+    goal: 500,
+    sub: ['Dust Spirit'],
+    id: 'Dust_Sprite',
+  },
+  {
+    name: '岩石蟹',
+    goal: 60,
+    sub: ['Rock Crab', 'Lava Crab', 'Iridium Crab'],
+    id: 'Rock_Crabs.EF.BC.9A',
+  },
+  {
+    name: '木乃伊',
+    goal: 100,
+    sub: ['Mummy'],
+    id: 'Mummy',
+  },
+  {
+    name: '霸王喷火龙',
+    goal: 50,
+    sub: ['Pepper Rex'],
+    id: 'Pepper_Rex',
+  },
+  {
+    name: '飞蛇',
+    goal: 250,
+    sub: ['Serpent', 'Royal Serpent'],
+    id: 'Serpent',
+  },
+  {
+    name: '熔岩精灵',
+    goal: 150,
+    sub: ['Magma Sprite', 'Magma Sparker'],
+    id: 'Magma_Sprite',
+  },
+];

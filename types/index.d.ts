@@ -47,7 +47,12 @@ export interface SaveGame {
   locationWeather: LocationWeather;
   builders: string;
   bannedUsers: string;
-  bundleData: Data;
+  bundleData: {
+    item: {
+      key: { string: string };
+      value: { string: string };
+    }[];
+  };
   limitedNutDrops: LimitedNutDrops;
   latestID: string;
   options: Options;
@@ -70,12 +75,17 @@ export interface SaveGame {
   globalInventories: string;
   collectedNutTracker: { string: string[] };
   farmerFriendships: string;
-  cellarAssignments: CellarAssignments;
+  cellarAssignments: {
+    item: {
+      key: { int: number };
+      value: { long: string };
+    };
+  };
   timesFedRaccoons: number;
   treasureTotemsUsed: number;
   perfectionWaivers: number;
   seasonOfCurrentRaccoonBundle: number;
-  raccoonBundles: RaccoonBundles;
+  raccoonBundles: { boolean: boolean[] };
   activatedGoldenParrot: boolean;
   daysPlayedWhenLastRaccoonBundleWasFinished: number;
   lastAppliedSaveFix: number;
@@ -88,15 +98,29 @@ export interface AvailableSpecialOrders {
 }
 
 export interface SpecialOrderElement {
-  preSelectedItems: PreSelectedItemsClass | string;
-  selectedRandomElements: TailoredItems | string;
+  preSelectedItems:
+    | {
+        item: {
+          key: { string: string };
+          value: { string: string };
+        };
+      }
+    | string;
+  selectedRandomElements:
+    | {
+        item: {
+          key: { string: string };
+          value: { int: number };
+        };
+      }
+    | string;
   objectives: Objective[] | ObjectivesClass;
   generationSeed: number;
   seenParticipantsIDs: string;
   participantsIDs: string;
   unclaimedRewardsIDs: string;
   appliedSpecialRules: boolean;
-  rewards: Reward[] | RewardsClass;
+  rewards: Reward[] | { amount: { int: number } };
   questKey: string;
   questName: string;
   questDescription: string;
@@ -124,70 +148,15 @@ export interface ObjectivesClass {
   failOnCompletion: boolean;
   targetNames?: string;
   acceptableContextTagSets?: string;
-  skullCave?: SleptInTemporaryBed;
-}
-
-export interface SleptInTemporaryBed {
-  boolean: boolean;
-}
-
-export interface PreSelectedItemsClass {
-  item: PreSelectedItemsItem;
-}
-
-export interface PreSelectedItemsItem {
-  key: StringObject;
-  value: StringObject;
-}
-
-interface StringObject {
-  string: string;
+  skullCave?: { boolean: boolean };
 }
 
 export interface Reward {
-  amount?: MaxEntries;
-  multiplier?: MultiplierClass;
-  noLetter?: SleptInTemporaryBed;
-  grantedMails?: StringObject;
-  host?: SleptInTemporaryBed;
-}
-
-export interface MaxEntries {
-  int: number;
-}
-
-export interface MultiplierClass {
-  float: number;
-}
-
-export interface RewardsClass {
-  amount: MaxEntries;
-}
-
-export interface TailoredItems {
-  item: TailoredItemsItem;
-}
-
-export interface TailoredItemsItem {
-  key: StringObject;
-  value: MaxEntries;
-}
-
-export interface Data {
-  item: PreSelectedItemsItem[];
-}
-
-export interface CellarAssignments {
-  item: CellarAssignmentsItem;
-}
-
-export interface CellarAssignmentsItem {
-  key: MaxEntries;
-  value: KeyClass;
-}
-
-export interface KeyClass {
-  long: string;
+  amount?: { int: number };
+  multiplier?: { float: number };
+  noLetter?: { boolean: boolean };
+  grantedMails?: { string: string };
+  host?: { boolean: boolean };
 }
 
 export enum Season {
@@ -285,21 +254,20 @@ export enum TypeEnum {
 }
 
 export interface JunimoKartLeaderboards {
-  entries: Entries;
-  maxEntries: MaxEntries;
-}
-
-export interface Entries {
-  NetLeaderboardsEntry: NetLeaderboardsEntry[];
-}
-
-export interface NetLeaderboardsEntry {
-  name: StringObject;
-  score: MaxEntries;
+  entries: {
+    NetLeaderboardsEntry: {
+      name: { string: string };
+      score: { int: number };
+    }[];
+  };
+  maxEntries: { int: number };
 }
 
 export interface LimitedNutDrops {
-  item: TailoredItemsItem[];
+  item: {
+    key: { string: string };
+    value: { int: number };
+  }[];
 }
 
 export interface LocationWeather {
@@ -307,7 +275,7 @@ export interface LocationWeather {
 }
 
 export interface LocationWeatherItem {
-  key: StringObject;
+  key: { string: string };
   value: PurpleValue;
 }
 
@@ -316,14 +284,14 @@ export interface PurpleValue {
 }
 
 export interface LocationWeatherClass {
-  weatherForTomorrow: StringObject;
-  weather: StringObject;
-  isRaining: SleptInTemporaryBed;
-  isSnowing: SleptInTemporaryBed;
-  isLightning: SleptInTemporaryBed;
-  isDebrisWeather: SleptInTemporaryBed;
-  isGreenRain: SleptInTemporaryBed;
-  monthlyNonRainyDayCount: MaxEntries;
+  weatherForTomorrow: { string: string };
+  weather: { string: string };
+  isRaining: { boolean: boolean };
+  isSnowing: { boolean: boolean };
+  isLightning: { boolean: boolean };
+  isDebrisWeather: { boolean: boolean };
+  isGreenRain: { boolean: boolean };
+  monthlyNonRainyDayCount: { int: number };
   WeatherForTomorrow: string;
   Weather: string;
   IsRaining: boolean;
@@ -359,9 +327,11 @@ export interface GameLocation {
   miniJukeboxCount: number;
   miniJukeboxTrack: MiniJukeboxTrack;
   furniture: FurnitureClass | string;
-  Animals: GameLocationAnimals;
+  Animals: {
+    SerializableDictionaryOfInt64FarmAnimal: string;
+  };
   IsGreenhouse: boolean;
-  housePaintColor?: HousePaintColor;
+  housePaintColor?: { BuildingPaintColor: string };
   grandpaScore?: number;
   farmCaveReady?: boolean;
   hasSeenGrandpaNote?: boolean;
@@ -389,7 +359,7 @@ export interface GameLocation {
   talkedToGil?: boolean;
   hasUnlockedStatue?: boolean;
   witchStatueGone?: boolean;
-  areasComplete?: RaccoonBundles;
+  areasComplete?: { boolean: boolean[] };
   numberOfStarsOnPlaque?: number;
   bundles?: Bundles;
   bundleRewards?: ChestConsumedLevels;
@@ -408,17 +378,17 @@ export interface GameLocation {
   mermaidPuzzleFinished?: boolean;
   fishedWalnut?: boolean;
   drinksClaimed?: string;
-  bananaShrineComplete?: SleptInTemporaryBed;
-  bananaShrineNutAwarded?: SleptInTemporaryBed;
-  sandDuggy?: SandDuggy;
+  bananaShrineComplete?: { boolean: boolean };
+  bananaShrineNutAwarded?: { boolean: boolean };
+  sandDuggy?: { whacked: boolean };
   farmhouseRestored?: boolean;
-  farmhouseStringObject?: boolean;
+  farmhouseMailbox?: boolean;
   farmObelisk?: boolean;
   shippingBinPosition?: ScaleElement;
   traderActivated?: boolean;
   caveOpened?: boolean;
   treeNutShot?: boolean;
-  treeNutObtained?: SleptInTemporaryBed;
+  treeNutObtained?: { boolean: boolean };
   firstParrotDone?: boolean;
   completed?: boolean;
   piecesDonated?: boolean[];
@@ -428,15 +398,11 @@ export interface GameLocation {
   frogRestored?: boolean;
   plantsRestoredLeft?: boolean;
   plantsRestoredRight?: boolean;
-  hasFailedSurveyToday?: SleptInTemporaryBed;
-  visited?: boolean | SleptInTemporaryBed;
+  hasFailedSurveyToday?: { boolean: boolean };
+  visited?: boolean | { boolean: boolean };
   puzzleFinished?: boolean;
   gourmandRequestsFulfilled?: number;
   raceTrack?: RaceTrack;
-}
-
-export interface GameLocationAnimals {
-  SerializableDictionaryOfInt64FarmAnimal: string;
 }
 
 export interface Gil {
@@ -451,7 +417,7 @@ export interface Gil {
   faceTowardFarmer: boolean;
   ignoreMovementAnimation: boolean;
   faceAwayFromFarmer: boolean;
-  scale: MultiplierClass;
+  scale: { float: number };
   glowingTransparency: number;
   glowRate: number;
   Gender: Gender;
@@ -481,12 +447,12 @@ export interface Gil {
   daysUntilNotInvisible: number;
   followSchedule: boolean;
   moveTowardPlayerThreshold: number;
-  hasBeenKissedToday: SleptInTemporaryBed;
-  shouldPlayRobinHammerAnimation: SleptInTemporaryBed;
-  shouldPlaySpousePatioAnimation: SleptInTemporaryBed;
-  shouldWearIslandAttire: SleptInTemporaryBed;
-  isMovingOnPathFindPath: SleptInTemporaryBed;
-  endOfRouteBehaviorName: StringObject;
+  hasBeenKissedToday: { boolean: boolean };
+  shouldPlayRobinHammerAnimation: { boolean: boolean };
+  shouldPlaySpousePatioAnimation: { boolean: boolean };
+  shouldWearIslandAttire: { boolean: boolean };
+  isMovingOnPathFindPath: { boolean: boolean };
+  endOfRouteBehaviorName: { string: string };
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
@@ -502,41 +468,21 @@ export enum Gender {
 }
 
 export interface GameLocationAppliedFloor {
-  SerializableDictionaryOfStringString: PurpleSerializableDictionaryOfStringString;
-}
-
-export interface PurpleSerializableDictionaryOfStringString {
-  item: PurpleItem[];
-}
-
-export interface PurpleItem {
-  key: StringObject;
-  value: PurpleKey;
-}
-
-export interface PurpleKey {
-  string: number;
+  SerializableDictionaryOfStringString: {
+    item: {
+      key: { string: string };
+      value: { string: number };
+    }[];
+  };
 }
 
 export interface AppliedWallpaper {
-  SerializableDictionaryOfStringString: AppliedWallpaperSerializableDictionaryOfStringString;
-}
-
-export interface AppliedWallpaperSerializableDictionaryOfStringString {
-  item: FluffyItem[];
-}
-
-export interface FluffyItem {
-  key: StringObject;
-  value: FluffyKey;
-}
-
-export interface FluffyKey {
-  string: number | string;
-}
-
-export interface RaccoonBundles {
-  boolean: boolean[];
+  SerializableDictionaryOfStringString: {
+    item: {
+      key: { string: string };
+      value: { string: number | string };
+    }[];
+  };
 }
 
 export interface BuildingsClass {
@@ -545,8 +491,8 @@ export interface BuildingsClass {
 
 export interface Building {
   id: string;
-  skinId: StringObject;
-  nonInstancedIndoorsName: StringObject;
+  skinId: { string: string };
+  nonInstancedIndoorsName: { string: string };
   tileX: number;
   tileY: number;
   tilesWide: number;
@@ -569,19 +515,19 @@ export interface Building {
   isMoving: boolean;
   indoors?: Indoors;
   upgradeName?: string;
-  fishType?: MaxEntries;
-  lastUnlockedPopulationGate?: MaxEntries;
-  hasCompletedRequest?: SleptInTemporaryBed;
-  goldenAnimalCracker?: SleptInTemporaryBed;
+  fishType?: { int: number };
+  lastUnlockedPopulationGate?: { int: number };
+  hasCompletedRequest?: { boolean: boolean };
+  goldenAnimalCracker?: { boolean: boolean };
   sign?: Sign;
   overrideWaterColor?: OverrideWaterColor;
   output?: Output;
-  neededItem?: NeededItem;
-  neededItemCount?: MaxEntries;
-  daysSinceSpawn?: MaxEntries;
-  nettingStyle?: MaxEntries;
-  seedOffset?: MaxEntries;
-  hasSpawnedFish?: SleptInTemporaryBed;
+  neededItem?: { Item: string };
+  neededItemCount?: { int: number };
+  daysSinceSpawn?: { int: number };
+  nettingStyle?: { int: number };
+  seedOffset?: { int: number };
+  hasSpawnedFish?: { boolean: boolean };
   input?: Input;
   watered?: boolean;
   petGuid?: string;
@@ -589,7 +535,7 @@ export interface Building {
   cropHarvestRadius?: number;
   noHarvest?: boolean;
   wasLit?: boolean;
-  raisinDays?: MaxEntries;
+  raisinDays?: { int: number };
   shouldSendOutJunimos?: boolean;
 }
 
@@ -633,9 +579,9 @@ export interface ChestElement {
   uses: number;
   destroyOvernight: boolean;
   currentLidFrame: number;
-  lidFrameCount: MaxEntries;
+  lidFrameCount: { int: number };
   frameCounter: number;
-  items: NeededItem | string;
+  items: { Item: string } | string;
   separateWalletItems: SeparateWalletItems;
   tint: Color;
   playerChoiceColor: Color;
@@ -643,16 +589,12 @@ export interface ChestElement {
   fridge: boolean;
   giftbox: boolean;
   giftboxIndex: number;
-  giftboxIsStarterGift: SleptInTemporaryBed;
+  giftboxIsStarterGift: { boolean: boolean };
   spriteIndexOverride: number;
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: StringObject;
-}
-
-export interface NeededItem {
-  Item: string;
+  globalInventoryId: { string: string };
 }
 
 export interface SeparateWalletItems {
@@ -702,7 +644,7 @@ export interface Output {
   uses?: number;
   destroyOvernight?: boolean;
   currentLidFrame?: number;
-  lidFrameCount?: MaxEntries;
+  lidFrameCount?: { int: number };
   frameCounter?: number;
   items?: string;
   separateWalletItems?: SeparateWalletItems;
@@ -712,31 +654,31 @@ export interface Output {
   fridge?: boolean;
   giftbox?: boolean;
   giftboxIndex?: number;
-  giftboxIsStarterGift?: SleptInTemporaryBed;
+  giftboxIsStarterGift?: { boolean: boolean };
   spriteIndexOverride?: number;
   dropContents?: boolean;
   synchronized?: boolean;
   specialChestType?: SpecialChestType;
-  globalInventoryId?: StringObject;
+  globalInventoryId?: { string: string };
   Item?: DishOfTheDay;
   questId?: number;
   preservedParentSheetIndex?: number;
 }
 
 export interface BuildingPaintColor {
-  ColorName: StringObject;
-  Color1Default: SleptInTemporaryBed;
-  Color1Hue: MaxEntries;
-  Color1Saturation: MaxEntries;
-  Color1Lightness: MaxEntries;
-  Color2Default: SleptInTemporaryBed;
-  Color2Hue: MaxEntries;
-  Color2Saturation: MaxEntries;
-  Color2Lightness: MaxEntries;
-  Color3Default: SleptInTemporaryBed;
-  Color3Hue: MaxEntries;
-  Color3Saturation: MaxEntries;
-  Color3Lightness: MaxEntries;
+  ColorName: { string: string };
+  Color1Default: { boolean: boolean };
+  Color1Hue: { int: number };
+  Color1Saturation: { int: number };
+  Color1Lightness: { int: number };
+  Color2Default: { boolean: boolean };
+  Color2Hue: { int: number };
+  Color2Saturation: { int: number };
+  Color2Lightness: { int: number };
+  Color3Default: { boolean: boolean };
+  Color3Hue: { int: number };
+  Color3Saturation: { int: number };
+  Color3Lightness: { int: number };
 }
 
 export interface Indoors {
@@ -765,13 +707,13 @@ export interface Indoors {
   Animals: IndoorsAnimals;
   IsGreenhouse: boolean;
   animalLimit?: number;
-  animalsThatLiveHere?: AnimalsThatLiveHere;
+  animalsThatLiveHere?: { long: string[] };
   wallPaper?: string;
   appliedWallpaper?: TrinketMetadata;
   floor?: string;
   appliedFloor?: IndoorsAppliedFloor;
   slimeMatingsLeft?: number;
-  waterSpots?: RaccoonBundles;
+  waterSpots?: { boolean: boolean[] };
 }
 
 export interface IndoorsAnimals {
@@ -779,16 +721,10 @@ export interface IndoorsAnimals {
 }
 
 export interface AnimalsClass {
-  item: AnimalsItem[];
-}
-
-export interface AnimalsItem {
-  key: KeyClass;
-  value: FluffyValue;
-}
-
-export interface FluffyValue {
-  FarmAnimal: FarmAnimal;
+  item: {
+    key: { long: string };
+    value: { FarmAnimal: FarmAnimal };
+  }[];
 }
 
 export interface FarmAnimal {
@@ -803,7 +739,7 @@ export interface FarmAnimal {
   faceTowardFarmer: boolean;
   ignoreMovementAnimation: boolean;
   faceAwayFromFarmer: boolean;
-  scale: MultiplierClass;
+  scale: { float: number };
   glowingTransparency: number;
   glowRate: number;
   Gender: Gender;
@@ -814,7 +750,7 @@ export interface FarmAnimal {
   IsEmoting: boolean;
   CurrentEmote: number;
   Scale: number;
-  isSwimming: SleptInTemporaryBed;
+  isSwimming: { boolean: boolean };
   currentProduce?: number;
   friendshipTowardFarmer: number;
   age: number;
@@ -843,16 +779,13 @@ export enum BuildingTypeILiveIn {
   Coop = 'Coop',
 }
 
-export interface AnimalsThatLiveHere {
-  long: string[];
-}
-
 export interface IndoorsAppliedFloor {
-  SerializableDictionaryOfStringString: FluffySerializableDictionaryOfStringString;
-}
-
-export interface FluffySerializableDictionaryOfStringString {
-  item: PurpleItem;
+  SerializableDictionaryOfStringString: {
+    item: {
+      key: { string: string };
+      value: { string: number };
+    };
+  };
 }
 
 export interface TrinketMetadata {
@@ -875,7 +808,7 @@ export interface CharactersNPCClass {
   faceTowardFarmer: boolean;
   ignoreMovementAnimation: boolean;
   faceAwayFromFarmer: boolean;
-  scale: MultiplierClass;
+  scale: { float: number };
   glowingTransparency: number;
   glowRate: number;
   Gender: Gender;
@@ -904,12 +837,12 @@ export interface CharactersNPCClass {
   daysUntilNotInvisible: number;
   followSchedule: boolean;
   moveTowardPlayerThreshold: number;
-  hasBeenKissedToday: SleptInTemporaryBed;
-  shouldPlayRobinHammerAnimation: SleptInTemporaryBed;
-  shouldPlaySpousePatioAnimation: SleptInTemporaryBed;
-  shouldWearIslandAttire: SleptInTemporaryBed;
-  isMovingOnPathFindPath: SleptInTemporaryBed;
-  endOfRouteBehaviorName: StringObject;
+  hasBeenKissedToday: { boolean: boolean };
+  shouldPlayRobinHammerAnimation: { boolean: boolean };
+  shouldPlaySpousePatioAnimation: { boolean: boolean };
+  shouldWearIslandAttire: { boolean: boolean };
+  isMovingOnPathFindPath: { boolean: boolean };
+  endOfRouteBehaviorName: { string: string };
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
@@ -928,12 +861,16 @@ export interface CharactersNPCClass {
   isGlider: boolean;
   mineMonster: boolean;
   hasSpecialItem: boolean;
-  objectsToDrop: ObjectsToDropClass | string;
-  stunTime: MaxEntries;
+  objectsToDrop:
+    | {
+        int: number[] | number;
+      }
+    | string;
+  stunTime: { int: number };
   initializedForLocation: boolean;
   ignoreDamageLOS: boolean;
   isHardModeMonster: boolean;
-  stackedSlimes: MaxEntries;
+  stackedSlimes: { int: number };
   randomStackOffset: number;
   leftDrift: boolean;
   cute: boolean;
@@ -944,7 +881,7 @@ export interface CharactersNPCClass {
   specialNumber: number;
   firstGeneration: boolean;
   color: Color;
-  prismatic: SleptInTemporaryBed;
+  prismatic: { boolean: boolean };
 }
 
 export enum Name {
@@ -952,10 +889,6 @@ export enum Name {
   GreenSlime = 'Green Slime',
   Sludge = 'Sludge',
   TigerSlime = 'Tiger Slime',
-}
-
-export interface ObjectsToDropClass {
-  int: number[] | number;
 }
 
 export interface IndoorsObjects {
@@ -1059,7 +992,7 @@ export interface HeldObject {
   uses: number;
   destroyOvernight: boolean;
   currentLidFrame: number;
-  lidFrameCount: MaxEntries;
+  lidFrameCount: { int: number };
   frameCounter: number;
   items: PurpleItems | string;
   separateWalletItems: SeparateWalletItems;
@@ -1069,12 +1002,12 @@ export interface HeldObject {
   fridge: boolean;
   giftbox: boolean;
   giftboxIndex: number;
-  giftboxIsStarterGift: SleptInTemporaryBed;
+  giftboxIsStarterGift: { boolean: boolean };
   spriteIndexOverride: number;
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: StringObject;
+  globalInventoryId: { string: string };
 }
 
 export interface PurpleItems {
@@ -1118,9 +1051,9 @@ export interface Input {
   preservedParentSheetIndex: number;
   destroyOvernight: boolean;
   currentLidFrame: number;
-  lidFrameCount: MaxEntries;
+  lidFrameCount: { int: number };
   frameCounter: number;
-  items: InputItems;
+  items: { Item: string[] };
   separateWalletItems: SeparateWalletItems;
   tint: Color;
   playerChoiceColor: Color;
@@ -1128,16 +1061,12 @@ export interface Input {
   fridge: boolean;
   giftbox: boolean;
   giftboxIndex: number;
-  giftboxIsStarterGift: SleptInTemporaryBed;
+  giftboxIsStarterGift: { boolean: boolean };
   spriteIndexOverride: number;
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: StringObject;
-}
-
-export interface InputItems {
-  Item: string[];
+  globalInventoryId: { string: string };
 }
 
 export interface OverrideWaterColor {
@@ -1149,25 +1078,19 @@ export interface Sign {
 }
 
 export interface ChestConsumedLevels {
-  item: ChestConsumedLevelsItem[];
-}
-
-export interface ChestConsumedLevelsItem {
-  key: MaxEntries;
-  value: SleptInTemporaryBed;
+  item: {
+    key: { int: number };
+    value: { boolean: boolean };
+  }[];
 }
 
 export interface Bundles {
-  item: BundlesItem[];
-}
-
-export interface BundlesItem {
-  key: MaxEntries;
-  value: StickyValue;
-}
-
-export interface StickyValue {
-  ArrayOfBoolean: RaccoonBundles;
+  item: {
+    key: { int: number };
+    value: {
+      ArrayOfBoolean: { boolean: boolean[] };
+    };
+  }[];
 }
 
 export interface FluffyCharacters {
@@ -1186,7 +1109,7 @@ export interface PurpleNPC {
   faceTowardFarmer: boolean;
   ignoreMovementAnimation: boolean;
   faceAwayFromFarmer: boolean;
-  scale: MultiplierClass;
+  scale: { float: number };
   glowingTransparency: number;
   glowRate: number;
   Gender: Gender;
@@ -1215,19 +1138,19 @@ export interface PurpleNPC {
   daysUntilNotInvisible: number;
   followSchedule: boolean;
   moveTowardPlayerThreshold: number;
-  hasBeenKissedToday: SleptInTemporaryBed;
-  shouldPlayRobinHammerAnimation: SleptInTemporaryBed;
-  shouldPlaySpousePatioAnimation: SleptInTemporaryBed;
-  shouldWearIslandAttire: SleptInTemporaryBed;
-  isMovingOnPathFindPath: SleptInTemporaryBed;
-  endOfRouteBehaviorName: StringObject;
+  hasBeenKissedToday: { boolean: boolean };
+  shouldPlayRobinHammerAnimation: { boolean: boolean };
+  shouldPlaySpousePatioAnimation: { boolean: boolean };
+  shouldWearIslandAttire: { boolean: boolean };
+  isMovingOnPathFindPath: { boolean: boolean };
+  endOfRouteBehaviorName: { string: string };
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
   DefaultPosition: ScaleElement;
   IsWalkingInSquare: boolean;
   IsWalkingTowardPlayer: boolean;
-  ownerId?: KeyClass;
+  ownerId?: { long: string };
   HorseId?: string;
   timeBeforeAIMovementAgain?: number;
   damageToFarmer?: number;
@@ -1241,8 +1164,8 @@ export interface PurpleNPC {
   isGlider?: boolean;
   mineMonster?: boolean;
   hasSpecialItem?: boolean;
-  objectsToDrop?: Achievements;
-  stunTime?: MaxEntries;
+  objectsToDrop?: { int: number[] };
+  stunTime?: { int: number };
   initializedForLocation?: boolean;
   ignoreDamageLOS?: boolean;
   isHardModeMonster?: boolean;
@@ -1250,11 +1173,16 @@ export interface PurpleNPC {
   petType?: string;
   whichBreed?: number;
   homeLocationName?: string;
-  lastPetDay?: LastPetDay;
+  lastPetDay?: {
+    item: {
+      key: { long: string };
+      value: { int: number };
+    };
+  };
   grantedFriendshipForPet?: boolean;
   friendshipTowardFarmer?: number;
   timesPet?: number;
-  isSleepingOnFarmerBed?: SleptInTemporaryBed;
+  isSleepingOnFarmerBed?: { boolean: boolean };
   CurrentBehavior?: string;
   defaultMap?: string;
   daysOld?: number;
@@ -1292,19 +1220,6 @@ export interface NPCHat {
   isPrismatic: boolean;
 }
 
-export interface LastPetDay {
-  item: LastPetDayItem;
-}
-
-export interface LastPetDayItem {
-  key: KeyClass;
-  value: MaxEntries;
-}
-
-export interface Achievements {
-  int: number[];
-}
-
 export interface FluffyNPC {
   name: string;
   forceOneTileWide: boolean;
@@ -1317,7 +1232,7 @@ export interface FluffyNPC {
   faceTowardFarmer: boolean;
   ignoreMovementAnimation: boolean;
   faceAwayFromFarmer: boolean;
-  scale: MultiplierClass;
+  scale: { float: number };
   glowingTransparency: number;
   glowRate: number;
   Gender: Gender;
@@ -1349,13 +1264,13 @@ export interface FluffyNPC {
   daysUntilNotInvisible: number;
   followSchedule: boolean;
   moveTowardPlayerThreshold: number;
-  hasBeenKissedToday: SleptInTemporaryBed;
-  shouldPlayRobinHammerAnimation: SleptInTemporaryBed;
-  shouldPlaySpousePatioAnimation: SleptInTemporaryBed;
-  shouldWearIslandAttire: SleptInTemporaryBed;
-  isMovingOnPathFindPath: SleptInTemporaryBed;
+  hasBeenKissedToday: { boolean: boolean };
+  shouldPlayRobinHammerAnimation: { boolean: boolean };
+  shouldPlaySpousePatioAnimation: { boolean: boolean };
+  shouldWearIslandAttire: { boolean: boolean };
+  isMovingOnPathFindPath: { boolean: boolean };
   dayScheduleName?: DayScheduleNameEnum;
-  endOfRouteBehaviorName: StringObject;
+  endOfRouteBehaviorName: { string: string };
   previousEndPoint: ScaleElement;
   squareMovementFacingPreference: number;
   DefaultFacingDirection: number;
@@ -1402,7 +1317,7 @@ export interface Fridge {
   preservedParentSheetIndex: number;
   destroyOvernight: boolean;
   currentLidFrame: number;
-  lidFrameCount: MaxEntries;
+  lidFrameCount: { int: number };
   frameCounter: number;
   items: FluffyItems | string;
   separateWalletItems: SeparateWalletItems;
@@ -1412,12 +1327,12 @@ export interface Fridge {
   fridge: boolean;
   giftbox: boolean;
   giftboxIndex: number;
-  giftboxIsStarterGift: SleptInTemporaryBed;
+  giftboxIsStarterGift: { boolean: boolean };
   spriteIndexOverride: number;
   dropContents: boolean;
   synchronized: boolean;
   specialChestType: SpecialChestType;
-  globalInventoryId: StringObject;
+  globalInventoryId: { string: string };
 }
 
 export interface FluffyItems {
@@ -1462,17 +1377,15 @@ export interface HeldObjectElement {
   destroyOvernight: boolean;
   preserve?: Preserve;
   preservedParentSheetIndex?: number;
-  displayNameOverrideTemplate?: StringObject;
-  descriptionSubstitutionTemplates?: HeldObjectDescriptionSubstitutionTemplates;
+  displayNameOverrideTemplate?: { string: string };
+  descriptionSubstitutionTemplates?: {
+    string: number[];
+  };
   trinketMetadata?: TrinketMetadata;
   generationSeed?: number;
   color?: Color;
   colorSameIndexAsParentSheetIndex?: boolean;
   ColorSameIndexAsParentSheetIndex?: boolean;
-}
-
-export interface HeldObjectDescriptionSubstitutionTemplates {
-  string: number[];
 }
 
 export interface FurnitureClass {
@@ -1523,9 +1436,9 @@ export interface FurnitureElement {
   drawHeldObjectLow: boolean;
   bedType?: string;
   heldObject?: Object;
-  topIndex?: MaxEntries;
-  middleIndex?: MaxEntries;
-  bottomIndex?: MaxEntries;
+  topIndex?: { int: number };
+  middleIndex?: { int: number };
+  bottomIndex?: { int: number };
 }
 
 export interface PurpleFurniture {
@@ -1569,11 +1482,7 @@ export interface PurpleFurniture {
   defaultSourceRect: BoundingBox;
   defaultBoundingBox: BoundingBox;
   drawHeldObjectLow: boolean;
-  generationSeed: MaxEntries;
-}
-
-export interface HousePaintColor {
-  BuildingPaintColor: string;
+  generationSeed: { int: number };
 }
 
 export interface LargeTerrainFeaturesClass {
@@ -1589,7 +1498,7 @@ export interface LargeTerrainFeature {
   health: number;
   flipped: boolean;
   townBush: boolean;
-  inPot: SleptInTemporaryBed;
+  inPot: { boolean: boolean };
   drawShadow: boolean;
 }
 
@@ -1599,12 +1508,10 @@ export enum MiniJukeboxTrack {
 }
 
 export interface MuseumPieces {
-  item: MuseumPiecesItem[];
-}
-
-export interface MuseumPiecesItem {
-  key: TentacledKey;
-  value: PurpleKey;
+  item: {
+    key: TentacledKey;
+    value: { string: number };
+  }[];
 }
 
 export interface ObjectsObjects {
@@ -1656,7 +1563,7 @@ export interface PurpleObject {
   uses: number;
   destroyOvernight: boolean;
   currentLidFrame?: number;
-  lidFrameCount?: MaxEntries;
+  lidFrameCount?: { int: number };
   frameCounter?: number;
   items?: TentacledItems | string;
   separateWalletItems?: SeparateWalletItems;
@@ -1666,12 +1573,12 @@ export interface PurpleObject {
   fridge?: boolean;
   giftbox?: boolean;
   giftboxIndex?: number;
-  giftboxIsStarterGift?: SleptInTemporaryBed;
+  giftboxIsStarterGift?: { boolean: boolean };
   spriteIndexOverride?: number;
   dropContents?: boolean;
   synchronized?: boolean;
   specialChestType?: SpecialChestType;
-  globalInventoryId?: StringObject;
+  globalInventoryId?: { string: string };
   lastOutputRuleId?: string;
   lastInputItem?: HeldObjectElement;
   health?: number;
@@ -1685,7 +1592,7 @@ export interface PurpleObject {
   questId?: number;
   directionOffset?: ScaleElement;
   tileIndexToShow?: number;
-  hoeDirt?: HoeDirt;
+  hoeDirt?: { state: number };
   bush?: LargeTerrainFeature;
   TileLocation?: ScaleElement;
   agingRate?: number;
@@ -1697,10 +1604,6 @@ export interface PurpleObject {
   locked?: boolean;
   match?: boolean;
   isIslandShrinePedestal?: boolean;
-}
-
-export interface HoeDirt {
-  state: number;
 }
 
 export interface TentacledItems {
@@ -1775,15 +1678,15 @@ export interface StickyItem {
   drawHeldObjectLow?: boolean;
   isFloor?: boolean;
   sourceTexture?: string;
-  generationSeed?: MaxEntries | number;
+  generationSeed?: { int: number } | number;
   bedType?: string;
-  hat?: ItemHat;
-  shirt?: Pants;
-  pants?: Pants;
-  boots?: ItemBoots;
-  facing?: MaxEntries;
-  swappedWithFarmerTonight?: SleptInTemporaryBed;
-  displayNameOverrideTemplate?: StringObject;
+  hat?: { Hat: string };
+  shirt?: { Clothing: string };
+  pants?: { Clothing: string };
+  boots?: { Boots: string };
+  facing?: { int: number };
+  swappedWithFarmerTonight?: { boolean: boolean };
+  displayNameOverrideTemplate?: { string: string };
   descriptionSubstitutionTemplates?:
     | DescriptionSubstitutionTemplatesDescriptionSubstitutionTemplates
     | string;
@@ -1811,15 +1714,11 @@ export interface StickyItem {
   critChance?: number;
   critMultiplier?: number;
   isOnSpecial?: boolean;
-  enchantments?: Enchantment[] | Enchantment;
+  enchantments?: { level: number }[] | { level: number };
 }
 
 export interface PurpleAttachments {
   Object: string[] | DishOfTheDay | string;
-}
-
-export interface ItemBoots {
-  Boots: string;
 }
 
 export enum ClothesType {
@@ -1838,20 +1737,16 @@ export enum StringEnum {
   LocalizedTextStrings1_6_StringsParrotEggChance3 = '[LocalizedText Strings\\1_6_Strings:ParrotEgg_Chance_3]',
 }
 
-export interface Enchantment {
-  level: number;
-}
-
-export interface ItemHat {
-  Hat: string;
-}
-
-export interface Pants {
-  Clothing: string;
-}
-
 export interface ModData {
-  item: FluffyItem[] | PreSelectedItemsItem;
+  item:
+    | {
+        key: { string: string };
+        value: { string: number | string };
+      }[]
+    | {
+        key: { string: string };
+        value: { string: string };
+      };
 }
 
 export interface IndigoItem {
@@ -1887,10 +1782,6 @@ export interface ResourceClump {
   parentSheetIndex: number;
   health: number;
   tile: ScaleElement;
-}
-
-export interface SandDuggy {
-  whacked: boolean;
 }
 
 export interface TerrainFeaturesClass {
@@ -1933,7 +1824,7 @@ export interface TerrainFeature {
 }
 
 export interface Crop {
-  phaseDays: Achievements | string;
+  phaseDays: { int: number[] } | string;
   rowInSpriteSheet: number;
   phaseToShow: number;
   currentPhase: number;
@@ -1970,7 +1861,7 @@ export interface MinePermanentMineChanges {
 }
 
 export interface MinePermanentMineChangesItem {
-  key: MaxEntries;
+  key: { int: number };
   value: AmbitiousValue;
 }
 
@@ -2061,17 +1952,19 @@ export interface Options {
 }
 
 export interface Button {
-  InputButton: InputButton[];
-}
-
-export interface InputButton {
-  key: string;
-  mouseLeft: boolean;
-  mouseRight: boolean;
+  InputButton: {
+    key: string;
+    mouseLeft: boolean;
+    mouseRight: boolean;
+  }[];
 }
 
 export interface CancelButton {
-  InputButton: InputButton;
+  InputButton: {
+    key: string;
+    mouseLeft: boolean;
+    mouseRight: boolean;
+  };
 }
 
 export interface Player {
@@ -2086,7 +1979,7 @@ export interface Player {
   faceTowardFarmer: boolean;
   ignoreMovementAnimation: boolean;
   faceAwayFromFarmer: boolean;
-  scale: MultiplierClass;
+  scale: { float: number };
   glowingTransparency: number;
   glowRate: number;
   Gender: Gender;
@@ -2097,34 +1990,35 @@ export interface Player {
   IsEmoting: boolean;
   CurrentEmote: number;
   Scale: number;
-  modData: Data;
-  questLog: string;
-  professions: Achievements;
-  newLevels: string;
-  experiencePoints: {
-    int: number[];
+  modData: {
+    item: {
+      key: { string: string };
+      value: { string: string };
+    }[];
   };
+  questLog: string;
+  professions: { int: number[] };
+  newLevels: string;
+  experiencePoints: { int: number[] };
   items: PlayerItems;
-  dialogueQuestionsAnswered: Achievements;
+  dialogueQuestionsAnswered: { int: number[] };
   cookingRecipes: LimitedNutDrops;
   craftingRecipes: LimitedNutDrops;
   activeDialogueEvents: LimitedNutDrops;
   previousActiveDialogueEvents: LimitedNutDrops;
   triggerActionsRun: { string: string[] };
-  eventsSeen: {
-    int: Array<number | string>;
-  };
-  secretNotesSeen: Achievements;
+  eventsSeen: { int: Array<number | string> };
+  secretNotesSeen: { int: number[] };
   songsHeard: { string: string[] };
-  achievements: Achievements;
-  specialItems: Achievements;
-  specialBigCraftables: Achievements;
+  achievements: { int: number[] };
+  specialItems: { int: number[] };
+  specialBigCraftables: { int: number[] };
   mailReceived: { string: string[] };
   mailForTomorrow: string;
-  mailbox: StringObject;
+  mailbox: { string: string };
   locationsVisited: { string: string[] };
-  timeWentToBed: MaxEntries;
-  sleptInTemporaryBed: SleptInTemporaryBed;
+  timeWentToBed: { int: number };
+  sleptInTemporaryBed: { boolean: boolean };
   stats: Stats;
   biteChime: number;
   itemsLostLastDeath: string;
@@ -2141,7 +2035,7 @@ export interface Player {
   hasMagicInk: string;
   hasMagnifyingGlass: string;
   hasRustyKey: string;
-  hasSkullKey: string;
+  hasSkullKey: string | boolean;
   hasSpecialCharm: string;
   HasTownKey: string;
   hasUnlockedSkullDoor: string;
@@ -2198,10 +2092,20 @@ export interface Player {
   mineralsFound: MineralsFound;
   recipesCooked: BasicShipped;
   fishCaught: FishCaught;
-  archaeologyFound: ArchaeologyFound;
+  archaeologyFound: {
+    item: {
+      key: { string: number };
+      value: { ArrayOfInt: { int: number[] } };
+    }[];
+  };
   callsReceived: CallsReceived;
   giftedItems: GiftedItems;
-  tailoredItems: TailoredItems;
+  tailoredItems: {
+    item: {
+      key: { string: string };
+      value: { int: number };
+    };
+  };
   friendshipData: FriendshipData;
   dayOfMonthForSaveGame: number;
   seasonForSaveGame: number;
@@ -2232,47 +2136,28 @@ export interface Player {
 }
 
 export interface JOTPKProgress {
-  bulletDamage: MaxEntries;
-  fireSpeedLevel: MaxEntries;
-  ammoLevel: MaxEntries;
-  spreadPistol: SleptInTemporaryBed;
-  runSpeedLevel: MaxEntries;
-  lives: MaxEntries;
-  coins: MaxEntries;
-  score: MaxEntries;
-  died: SleptInTemporaryBed;
-  whichRound: MaxEntries;
-  whichWave: MaxEntries;
-  heldItem: MaxEntries;
-  world: MaxEntries;
-  waveTimer: MaxEntries;
-  monsterChances: MonsterChances;
-}
-
-export interface MonsterChances {
-  Vector2: ScaleElement[];
-}
-
-export interface ArchaeologyFound {
-  item: ArchaeologyFoundItem[];
-}
-
-export interface ArchaeologyFoundItem {
-  key: PurpleKey;
-  value: CunningValue;
-}
-
-export interface CunningValue {
-  ArrayOfInt: Achievements;
+  bulletDamage: { int: number };
+  fireSpeedLevel: { int: number };
+  ammoLevel: { int: number };
+  spreadPistol: { boolean: boolean };
+  runSpeedLevel: { int: number };
+  lives: { int: number };
+  coins: { int: number };
+  score: { int: number };
+  died: { boolean: boolean };
+  whichRound: { int: number };
+  whichWave: { int: number };
+  heldItem: { int: number };
+  world: { int: number };
+  waveTimer: { int: number };
+  monsterChances: { Vector2: ScaleElement[] };
 }
 
 export interface BasicShipped {
-  item: BasicShippedItem[];
-}
-
-export interface BasicShippedItem {
-  key: FluffyKey;
-  value: MaxEntries;
+  item: {
+    key: { string: number | string };
+    value: { int: number };
+  }[];
 }
 
 export interface PlayerBoots {
@@ -2294,21 +2179,19 @@ export interface PlayerBoots {
 }
 
 export interface CallsReceived {
-  item: CallsReceivedItem;
-}
-
-export interface CallsReceivedItem {
-  key: PurpleKey;
-  value: MaxEntries;
+  item: {
+    key: { string: number };
+    value: { int: number };
+  };
 }
 
 export interface FishCaught {
-  item: FishCaughtItem[];
-}
-
-export interface FishCaughtItem {
-  key: StringObject;
-  value: CunningValue;
+  item: {
+    key: { string: string };
+    value: {
+      ArrayOfInt: { int: number[] };
+    };
+  }[];
 }
 
 export interface FriendshipData {
@@ -2316,7 +2199,7 @@ export interface FriendshipData {
 }
 
 export interface FriendshipDataItem {
-  key: StringObject;
+  key: { string: string };
   value: MagentaValue;
 }
 
@@ -2354,7 +2237,7 @@ export interface GiftedItems {
 }
 
 export interface GiftedItemsItem {
-  key: StringObject;
+  key: { string: string };
   value: FriskyValue;
 }
 
@@ -2363,7 +2246,15 @@ export interface FriskyValue {
 }
 
 export interface Dictionary {
-  item: BasicShippedItem[] | CallsReceivedItem;
+  item:
+    | {
+        key: { string: number | string };
+        value: { int: number };
+      }[]
+    | {
+        key: { string: number };
+        value: { int: number };
+      };
 }
 
 export interface PlayerItems {
@@ -2396,7 +2287,7 @@ export interface IndecentItem {
   InstantUse?: boolean;
   IsEfficient?: boolean;
   AnimationSpeedModifier?: number;
-  additionalPower?: MaxEntries;
+  additionalPower?: { int: number };
   previousEnchantments?: string[];
   type?: TypeEnum | number;
   minDamage?: number;
@@ -2465,7 +2356,10 @@ export interface Ring {
 }
 
 export interface MineralsFound {
-  item: CallsReceivedItem[];
+  item: {
+    key: { string: number };
+    value: { int: number };
+  }[];
 }
 
 export interface PantsItem {
@@ -2511,10 +2405,17 @@ export interface ShirtItem {
 }
 
 export interface Stats {
-  specificMonstersKilled: LimitedNutDrops;
+  specificMonstersKilled: {
+    item: {
+      key: { string: string };
+      value: {
+        int: number;
+      };
+    }[];
+  };
   Values: {
     item: {
-      key: StringObject;
+      key: { string: string };
       value: {
         unsignedInt: number;
       };
@@ -2602,7 +2503,7 @@ export interface TrinketItem {
   scale: ScaleElement;
   uses: number;
   destroyOvernight: boolean;
-  displayNameOverrideTemplate: StringObject;
+  displayNameOverrideTemplate: { string: string };
   descriptionSubstitutionTemplates: DescriptionSubstitutionTemplatesDescriptionSubstitutionTemplates;
   trinketMetadata: TrinketMetadata;
   generationSeed: number;
@@ -2613,8 +2514,18 @@ export interface SpecialOrders {
 }
 
 export interface SpecialOrdersSpecialOrder {
-  preSelectedItems: PreSelectedItemsClass;
-  selectedRandomElements: TailoredItems;
+  preSelectedItems: {
+    item: {
+      key: { string: string };
+      value: { string: string };
+    };
+  };
+  selectedRandomElements: {
+    item: {
+      key: { string: string };
+      value: { int: number };
+    };
+  };
   objectives: Objective;
   generationSeed: number;
   seenParticipantsIDs: ParticipantsIDs;
@@ -2639,8 +2550,8 @@ export interface ParticipantsIDs {
 }
 
 export interface ParticipantsIDsItem {
-  key: KeyClass;
-  value: SleptInTemporaryBed;
+  key: { long: string };
+  value: { boolean: boolean };
 }
 
 export interface Farmhands {

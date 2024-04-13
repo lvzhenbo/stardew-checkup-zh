@@ -10,6 +10,7 @@ declare module 'vue' {
     About: typeof import('./src/components/About.vue')['default']
     ChangeLog: typeof import('./src/components/ChangeLog.vue')['default']
     Money: typeof import('./src/components/SaveCheckup/components/Money.vue')['default']
+    MonsterHunting: typeof import('./src/components/SaveCheckup/components/MonsterHunting.vue')['default']
     NAnchor: typeof import('naive-ui')['NAnchor']
     NAnchorLink: typeof import('naive-ui')['NAnchorLink']
     NButton: typeof import('naive-ui')['NButton']
