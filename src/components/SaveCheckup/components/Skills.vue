@@ -26,7 +26,7 @@
             5项技能中有 {{ item.maxSkillNum }} 项达到了最高级10级
             <NUl>
               <NLi :class="getAchieveClass(item.maxSkillNum, 1)">
-                非凡天赋（任意一种技能达到10级。）
+                非凡天赋（任意一种技能达到10级）
                 <NText>{{ getAchieveText(item.maxSkillNum, 1) }}</NText>
               </NLi>
               <NLi :class="getAchieveClass(item.maxSkillNum, 5)">

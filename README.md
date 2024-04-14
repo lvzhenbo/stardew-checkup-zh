@@ -1,65 +1,21 @@
-# naive-tailwind-template
+# 星露谷物语存档进度检查器
 
-一个简单的 Naive UI + TailwindCSS 的模板
+## 关于
 
-一个本人很喜欢的技术栈，[Naive UI](https://www.naiveui.com/) + [TailwindCSS](https://tailwindcss.com/)，这个模板可以让你快速开始一个项目。
+此应用检查 [星露谷物语](https://www.stardewvalley.net/) 存档文件中的各种成就和里程碑，并让你知道缺少了什么。目前，它可以检查 46 项成就的进度以及其他进度和完成机制，包括爷爷的评价、姜岛升级、完美度和社交关系。
 
-使用[unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) + [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)技术加持，自动导入不费力。
+支持1.6版本大多数更改和新增的内容。与原英文版不同，因开发者本地只有1.6版本以上存档，所以只支持1.6版本以上。
 
-~~PS：只是方便自己不用每次都搭建一次而已。~~
+本应用是用Vue.js编写的，使用了Naive UI和TailwindCSS构造页面，使用fast-xml-parser解析存档。源代码存储库在 [https://github.com/lvzhenbo/stardew-checkup-zh](https://github.com/lvzhenbo/stardew-checkup-zh) 。英文原作者为 [MouseyPounds](https://github.com/MouseyPounds) ，原存储库在 [https://github.com/MouseyPounds/stardew-checkup](https://github.com/MouseyPounds/stardew-checkup) 。本项目参照了原项目的UI设计和逻辑，在基础上使用更现代的JS语法。
 
-## 推荐 IDE 设置
+## 快速开始
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (并且禁用 Vetur ，推荐卸载) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-额外插件：[Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) + [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) + [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) + [Headwind](https://marketplace.visualstudio.com/items?itemName=heybourn.headwind)
-
-## 项目设置
-
-> 推荐使用pnpm
-
-```sh
-pnpm install
-```
-
-### 开发（编译和热重载）
-
-```sh
+```bash
+pnpm i
 pnpm dev
-```
-
-### 预览
-
-```sh
-pnpm preview
-```
-
-### 生产（类型检查、编译和最小化）
-
-```sh
 pnpm build
 ```
 
-### 生产（只编译）
+## 许可证
 
-```sh
-pnpm build-only
-```
-
-### 类型检查
-
-```sh
-pnpm type-check
-```
-
-### [ESLint](https://eslint.org/) 格式化
-
-```sh
-pnpm lint
-```
-
-### [Prettier](https://prettier.io/) 格式化
-
-```sh
-pnpm format
-```
+[MIT](https://opensource.org/licenses/MIT)

@@ -116,3 +116,34 @@ export const monstersData = [
     id: 'Magma_Sprite',
   },
 ];
+
+export const stardrops = [
+  {
+    name: 'CF_Fair',
+    info: '在星露谷展览会上购买，价格为2,000星星币',
+  },
+  {
+    name: 'CF_Mines',
+    info: '矿井首次到达100层，打开宝箱获得',
+  },
+  {
+    name: 'CF_Spouse',
+    info: '当与配偶（或者室友科罗布斯）好感度到达12.5颗心时，与其对话获得',
+  },
+  {
+    name: 'CF_Sewer',
+    info: '在下水道的科罗布斯处购买，价格为20,000金',
+  },
+  {
+    name: 'CF_Statue',
+    info: '给秘密森林的老坎诺利大师赠予一个宝石甜莓后获得',
+  },
+  {
+    name: 'CF_Fish',
+    info: '完成垂钓大师成就后，从威利的信中收到',
+  },
+  {
+    name: 'museumComplete',
+    info: '完成全套收集成就（捐赠所有95种物品到博物馆）后，从博物馆获得',
+  },
+];

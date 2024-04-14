@@ -148,13 +148,18 @@
     const { results } = useResultsStore();
     ifDetail.value = false;
 
-    farmerMonstersList.value = [
-      {
-        ...getFarmerMonsters(data.player),
-        monstersKilled: results.summary.farmer?.stats.monstersKilled || 0,
-        ...getEachMonstersKilled(data.player.stats.specificMonstersKilled.item),
-      },
-    ];
+    if (results.summary.farmer) {
+      farmerMonstersList.value = [
+        {
+          ...getFarmerMonsters(data.player),
+          monstersKilled: results.summary.farmer.stats.monstersKilled || 0,
+          ...getEachMonstersKilled(data.player.stats.specificMonstersKilled.item),
+        },
+      ];
+      results.summary.farmer.monsterKilledCompleted = getEachMonstersKilled(
+        data.player.stats.specificMonstersKilled.item,
+      ).completed;
+    }
 
     if (Array.isArray(results.summary.farmhands)) {
       results.summary.farmhands.forEach((farmhand) => {
@@ -167,6 +172,9 @@
             monstersKilled: farmhand.stats.monstersKilled || 0,
             ...getEachMonstersKilled(farmhandData.stats.specificMonstersKilled.item),
           });
+          farmhand.monsterKilledCompleted = getEachMonstersKilled(
+            farmhandData.stats.specificMonstersKilled.item,
+          ).completed;
         }
       });
     }

@@ -36,6 +36,8 @@ export interface Farmer {
   combatLevel: number;
   totalLevel?: number;
   maxSkillNum?: number;
+  monsterKilledCompleted?: boolean;
+  stardropsCompleted?: boolean;
 }
 
 export interface Money {
