@@ -147,3 +147,45 @@ export const stardrops = [
     info: '完成全套收集成就（捐赠所有95种物品到博物馆）后，从博物馆获得',
   },
 ];
+
+export const villagers: {
+  [key: string]: string;
+} = {
+  // 可结婚男性
+  Alex: '亚历克斯',
+  Elliott: '艾利欧特',
+  Harvey: '哈维',
+  Sam: '山姆',
+  Sebastian: '塞巴斯蒂安',
+  Shane: '谢恩',
+  // 可结婚女性
+  Abigail: '阿比盖尔',
+  Emily: '艾米丽',
+  Haley: '海莉',
+  Leah: '莉亚',
+  Maru: '玛鲁',
+  Penny: '潘妮',
+  // 不可结婚对象
+  Caroline: '卡罗琳',
+  Clint: '克林特',
+  Demetrius: '德米特里厄斯',
+  Dwarf: '矮人',
+  Evelyn: '艾芙琳',
+  George: '乔治',
+  Gus: '格斯',
+  Jas: '贾斯',
+  Jodi: '乔迪',
+  Kent: '肯特',
+  Krobus: '科罗布斯',
+  Lewis: '刘易斯',
+  Linus: '莱纳斯',
+  Marnie: '玛尼',
+  Pam: '潘姆',
+  Pierre: '皮埃尔',
+  Robin: '罗宾',
+  Sandy: '桑迪',
+  Vincent: '文森特',
+  Willy: '威利',
+  Wizard: '法师',
+  Leo: '雷欧',
+};

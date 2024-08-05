@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     About: typeof import('./src/components/About.vue')['default']
     ChangeLog: typeof import('./src/components/ChangeLog.vue')['default']
+    Family: typeof import('./src/components/SaveCheckup/components/Family.vue')['default']
     Money: typeof import('./src/components/SaveCheckup/components/Money.vue')['default']
     MonsterHunting: typeof import('./src/components/SaveCheckup/components/MonsterHunting.vue')['default']
     NAnchor: typeof import('naive-ui')['NAnchor']

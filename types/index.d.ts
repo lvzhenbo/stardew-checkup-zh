@@ -27,7 +27,7 @@ export interface SaveGame {
   shuffleMineChests: string;
   dayOfMonth: number;
   year: number;
-  countdownToWedding: string;
+  countdownToWedding: string | number;
   dailyLuck: number;
   uniqueIDForThisGame: number;
   weddingToday: boolean;
